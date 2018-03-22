@@ -1,0 +1,18 @@
+body {
+    padding-top: 80px;
+}
+
+.img-thumbnail {
+    padding: 0;
+    margin-bottom: 1em;
+}
+
+.img-thumbnail img {
+     width: 100%;
+}
+
+/* Google Maps */
+#map {
+    height: 400px;
+    width: 100%;
+}
