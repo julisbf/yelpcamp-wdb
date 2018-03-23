@@ -11,8 +11,22 @@ body {
      width: 100%;
 }
 
+label {
+    font-weight: bold;
+}
+
 /* Google Maps */
 #map {
     height: 400px;
     width: 100%;
+}
+
+.forms {
+    width: 60%;
+}
+
+@media (max-width: 768px) {
+    .forms {
+        width: 100%;
+    }
 }
