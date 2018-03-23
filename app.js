@@ -15,6 +15,7 @@ var commentRoutes       = require("./routes/comments"),
     campgroundRoutes    = require("./routes/campgrounds"),
     indexRoutes         = require("./routes/index");
 
+require('dotenv').config();
 mongoose.connect("mongodb://localhost/yelpcamp_app");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
