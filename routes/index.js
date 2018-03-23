@@ -102,7 +102,7 @@ route.post("/forgot", function(req,res,next) {
             // var smtpTransport = nodemailer.createTransport({
             //     service: 'Gmail',
             //     auth: {
-            //         user: 'bfjuliana@gmail.com',
+            //         user: 'youremail@mail.com',
             //         pass: process.env.GMAILPW // export GMAILPW=yourpassword
             //     }
             // });
@@ -191,7 +191,7 @@ route.post("/reset/:token", function(req, res) {
         //   var smtpTransport = nodemailer.createTransport({
         //     service: 'Gmail', 
         //     auth: {
-        //       user: 'bfjuliana@gmail.com',
+        //       user: 'youremail@mail.com',
         //       pass: process.env.GMAILPW
         //     }
         //   });
