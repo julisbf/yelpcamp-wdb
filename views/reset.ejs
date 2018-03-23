@@ -1,0 +1,26 @@
+<% include ./partials/header %>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h1 class="text-center">Reset Password</h1>
+                <div class="mx-auto my-4">
+                    <form action="/reset/<%= token%>" method="post">
+                        <div class="form-group">
+                            <label for="newPass">New Password</label>
+                            <input type="password" class="form-control" name="password" id="newPass" placeholder="New Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPass">Confirm New Password</label>
+                            <input type="password" class="form-control" name="confirm" id="confirmPass" placeholder="Confirm Password">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-secondary btn-block">Update Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+<% include ./partials/footer %>
