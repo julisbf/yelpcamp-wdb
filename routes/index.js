@@ -4,9 +4,10 @@ var express     = require("express"),
     passport    = require("passport"),
     middleware  = require("../middleware"),
     async       = require("async"),
-    nodemailer  = require("nodemailer"),
     crypto      = require("crypto"),
     multer          = require('multer');
+
+//nodemailer  = require("nodemailer")// Add package to use it.
     
 require('dotenv').config();
 
