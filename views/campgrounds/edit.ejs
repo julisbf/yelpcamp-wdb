@@ -26,7 +26,7 @@
                 <label class="d-block" for="image">Choose a new image:</label>
                 <img class="d-inline" src="<%=campground.image%>" alt="Current <%=campground.name%> Campground Image" width="150">
                 <input type="file" id="image" name="image" accept="image/*">
-                <input type="text" class="form-control" name="campground[image]" value="<%=campground.image%>" disabled>
+                <input type="text" class="form-control" name="campground[image]" value="<%=campground.image%>" readonly>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-secondary btn-block">Edit Campground</button>
