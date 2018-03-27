@@ -17,7 +17,6 @@ var options         = {
 var geocoder        = NodeGeocoder(options);
 
 //Image uploader config
-
 var storage = multer.diskStorage({
   filename: function(req, file, callback) {
     callback(null, Date.now() + file.originalname);
@@ -38,16 +37,33 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY, 
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
+
 //INDEX - SHOWS ALL THE CAMPGROUNDS
 route.get("/", function(req,res) {
-    Campground.find({}, function(err, allCampgrounds) {
-		if(err){
-			req.flash("error",err.message);
-			return res.redirect("back");
-		} else {
-		    res.render("campgrounds/index",{campgrounds: allCampgrounds, page: 'campgrounds'});
-		}
-	});
+    if(req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Campground.find({name: regex}, function(err, allCampgrounds) {
+    		if(err){
+    			req.flash("error",err.message);
+    			return res.redirect("back");
+    		} else {
+    		    if(allCampgrounds.length < 1) {
+    		        req.flash("error","Sorry, no results were found. Please try again.");
+    			    return res.redirect("/campgrounds");
+    		    }
+    		    res.render("campgrounds/index",{campgrounds: allCampgrounds, page: 'campgrounds'});
+    		}
+    	});
+    } else {
+        Campground.find({}, function(err, allCampgrounds) {
+    		if(err){
+    			req.flash("error",err.message);
+    			return res.redirect("back");
+    		} else {
+    		    res.render("campgrounds/index",{campgrounds: allCampgrounds, page: 'campgrounds'});
+    		}
+    	});
+    }
 });
 
 //NEW - SHOW FORM TO CREATE A NEW CAMPGROUND
@@ -166,6 +182,10 @@ route.delete("/:id",middleware.checkCampgroundOwnership, function(req,res) {
         res.redirect("/campgrounds");
     });
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = route;
 

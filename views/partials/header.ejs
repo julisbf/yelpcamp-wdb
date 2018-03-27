@@ -38,6 +38,10 @@
                         <a class="nav-link" href="/logout" data-toggle="tooltip" title="Logout"><img class="icon-btn" src="/images/sign-out.svg" alt="Sign Out Button"></a>
                     </li>
                 <% } %>
+                <form action="/campgrounds" method="GET" class="form-inline ml-2">
+                    <input class="form-control form-control-sm" name="search" type="search" placeholder="Campgrounds Search.." aria-label="Search">
+                    <button class="btn btn-sm search-btn" type="submit">Search</button>
+                </form>
             </ul>
         </div>
         </div>
