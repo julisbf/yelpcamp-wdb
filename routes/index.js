@@ -5,7 +5,33 @@ var express     = require("express"),
     middleware  = require("../middleware"),
     async       = require("async"),
     nodemailer  = require("nodemailer"),
-    crypto      = require("crypto");
+    crypto      = require("crypto"),
+    multer          = require('multer');
+    
+require('dotenv').config();
+
+//Image uploader config
+
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'dnlmdpqac', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 
 //Mailgun Config
@@ -24,27 +50,44 @@ route.get('/register', function(req, res) {
 });
 
 //Register authentication
-route.post('/register', function(req, res) {
+route.post('/register',upload.single('avatar'), function(req, res) {
     var newUser = new User({
         username: req.body.username,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        avatar: req.body.avatar,
         email: req.body.email
     });
     if(req.body.adminCode === "NowYouHaveThePower") {
         newUser.isAdmin = true;
     }
-    User.register(newUser, req.body.password, function(err, user) {
-        if(err){
-            req.flash("error", err.message);
-            res.redirect('/register');
-        }
-        passport.authenticate("local")(req,res,function() {
-            req.flash("success", "Successfully Sign up! Nice to meet you "+user.username);
-            res.redirect('/campgrounds');
+    if(req.file){
+        cloudinary.uploader.upload(req.file.path, function(result) {
+            console.log(result);
+            // add cloudinary url for the image to the campground object under image property
+            newUser.avatar = result.secure_url;
+            User.register(newUser, req.body.password, function(err, user) {
+                if(err){
+                    req.flash("error", err.message);
+                    res.redirect('/register');
+                }
+                passport.authenticate("local")(req,res,function() {
+                    req.flash("success", "Successfully Sign up! Nice to meet you "+user.username);
+                    res.redirect('/campgrounds');
+                });
+            });
         });
-    });
+    }else{
+        User.register(newUser, req.body.password, function(err, user) {
+            if(err){
+                req.flash("error", err.message);
+                res.redirect('/register');
+            }
+            passport.authenticate("local")(req,res,function() {
+                req.flash("success", "Successfully Sign up! Nice to meet you "+user.username);
+                res.redirect('/campgrounds');
+            });
+        });
+    }
 });
 
 //Login form
@@ -87,7 +130,7 @@ route.post("/forgot", function(req,res,next) {
             User.findOne({email: req.body.email}, function(err, user) {
                 if(err || !user) {
                     req.flash("error","No account with that email address exists.");
-                    return res.redirect("/forgot");
+                    return res.redirect("/login");
                 }
                 
                 user.resetPasswordToken = token;
@@ -138,7 +181,7 @@ route.post("/forgot", function(req,res,next) {
         }
         ], function(err) {
             if(err) return next(err);
-            res.redirect("/forgot");
+            res.redirect("/login");
         });
 });
 
