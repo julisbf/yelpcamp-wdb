@@ -35,7 +35,7 @@ cloudinary.config({
 
 
 //Mailgun Config
-var api_key = 'key-e01c7816a58e48094a1b81cfaf47edd0',
+var api_key = process.env.MAILGUN_KEY,
     domain  = 'sandboxe14a0f41d68d43bfb8e3fb38faaaf9d0.mailgun.org',
     mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
     
