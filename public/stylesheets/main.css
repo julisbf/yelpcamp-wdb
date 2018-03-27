@@ -25,6 +25,34 @@ label {
     width: 60%;
 }
 
+.icon-btn {
+    width: 1.5rem;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 1.8rem;
+    border: 1px solid #888;
+}
+
+.navbar-light .navbar-nav .active > .nav-link {
+    border-bottom: 2px solid #A258A3;
+}
+
+.logo-jumbotron {
+    width: 5rem;
+    vertical-align: baseline;
+}
+
+button .close {
+    color: #A258A3;
+}
+.modal-footer {
+    justify-content: center;
+    background-color: #F3F2F0;
+    border-color: #A258A3;
+}
+
 @media (max-width: 768px) {
     .forms {
         width: 100%;
