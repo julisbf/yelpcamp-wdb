@@ -3,9 +3,11 @@
     <div class="container">
         <header class="jumbotron">
             <div class="container">
-                <h1 class="display-4">Welcome To YelpCamp!</h1>
+                <h1 class="display-4"><img class="logo-jumbotron" src="/images/tent-logo.svg"> Welcome To YelpCamp!</h1>
                 <p class="lead">View our hand-picked campgrounds from all over the world</p>
+            <% if(currentUser) { %>
                 <p><a class="btn btn-primary btn-lg" href="/campgrounds/new" role="button">ADD A NEW CAMPGROUND</a></p>
+            <% } %>
             </div>
         </header>
         
