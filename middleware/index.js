@@ -1,6 +1,31 @@
 var Campground  = require("../models/campground"),
     Comment     = require("../models/comment"),
+    User        = require("../models/user"),
+    urlBack     =   "/campgrounds",
     middleware  = {};
+
+
+//CHECK IF A USER IS LOG IN AND HAS PERMISSIONS TO CHANGE PROFILE  
+middleware.checkProfileOwnership = function(req,res,next) {
+    if(req.isAuthenticated()) {
+        User.findById(req.params.id, function(err, foundUser) {
+            if(err || !foundUser){
+                req.flash("error", "User not found");
+                res.redirect(urlBack);
+            }else{
+                if(foundUser._id.equals(req.user._id)) {
+                    next();
+                }else {
+                    req.flash("error", "You don't permission to do that");
+                    res.redirect(urlBack);
+                }
+            }
+        })
+    } else {
+        req.flash("error", "You need to be logged in to do that");
+        res.redirect('/campgrounds');
+    }
+}
 
 //CHECK IF A USER IS LOG IN AND HAS PERMISSIONS IN CAMPGROUNDS  
 middleware.checkCampgroundOwnership = function(req,res,next) {
@@ -8,19 +33,19 @@ middleware.checkCampgroundOwnership = function(req,res,next) {
         Campground.findById(req.params.id, function(err, foundCampground) {
             if(err || !foundCampground){
                 req.flash("error", "Campground not found");
-                res.redirect('back');
+                res.redirect(urlBack);
             }else{
                 if(foundCampground.author.id.equals(req.user._id) || req.user.isAdmin) {
                     next();
                 }else {
                     req.flash("error", "You don't permission to do that");
-                    res.redirect('back');
+                    res.redirect(urlBack);
                 }
             }
         })
     } else {
         req.flash("error", "You need to be logged in to do that");
-        res.redirect('back');
+        res.redirect(urlBack);
     }
 }
 
@@ -30,19 +55,19 @@ middleware.checkCommentOwnership = function(req,res,next) {
         Comment.findById(req.params.comment_id, function(err, foundComment) {
             if(err || !foundComment){
                 req.flash("error", "Comment not found.");
-                res.redirect('back');
+                res.redirect(urlBack);
             }else{
                 if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin) {
                     next();
                 }else {
                     req.flash("error", "You don't permission to do that");
-                    res.redirect('back');
+                    res.redirect(urlBack);
                 }
             }
         });
     } else {
         req.flash("error", "You need to be logged in to do that");
-        res.redirect('back');
+        res.redirect(urlBack);
     }
 }
 

@@ -28,11 +28,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-route.get("/profile/:id/edit",middleware.isLoggedIn, upload.single('avatar'), function(req, res) {
+route.get("/profile/:id/edit",middleware.checkProfileOwnership, function(req, res) {
     User.findById(req.params.id, function(err, foundUser) {
         if(err) {
             req.flash("error", err.message);
-            return res.redirect("back");
+            return res.redirect("/campgrounds");
         }
         //console.log(foundUser);
         res.render("users/edit",{page: 'profile'});
@@ -40,8 +40,7 @@ route.get("/profile/:id/edit",middleware.isLoggedIn, upload.single('avatar'), fu
     
 });
 
-route.put("/profile/:id",middleware.isLoggedIn,upload.single('avatar'), function(req, res) { 
-   
+route.put("/profile/:id",middleware.checkProfileOwnership,upload.single('avatar'), function(req, res) { 
     if(req.file){
         cloudinary.uploader.upload(req.file.path, function(result) {
             // add cloudinary url for the image to the campground object under image property
@@ -82,5 +81,20 @@ route.put("/profile/:id",middleware.isLoggedIn,upload.single('avatar'), function
         });
     }
 });
+
+//Implement change password
+// if(req.body.password.length > 1){
+//     if(req.body.password === req.body.confirm) {
+//         updatedUser.setPassword(req.body.password, function(err) {
+//             if(err) {
+//                 req.flash("error", err.message);
+//                 return res.redirect('/users/profile/'+updatedUser._id + "/edit");
+//             }
+//         });
+//     } else {
+//         req.flash("error", "New Password and Confirm Password need to be ");
+//         return res.redirect('/users/profile/'+updatedUser._id + "/edit");
+//     }
+// }
 
 module.exports = route;
