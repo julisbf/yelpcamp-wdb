@@ -29,8 +29,8 @@
                         </li>
                        
                 <% } else { %>
-                    <li class="nav-item">
-                        <a class="nav-link">
+                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>">
+                        <a class="nav-link" href="/users/profile/<%= currentUser._id%>/edit" data-toggle="tooltip" title="User Profile">
                             <img src="<%= currentUser.avatar %>" class="avatar" alt="Profile Image">
                         </a>
                     </li>
