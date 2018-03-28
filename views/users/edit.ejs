@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+    <div class="container">
+        <form action="/users/profile/<%= currentUser._id%>?_method=PUT" method="post" enctype="multipart/form-data">
+            <h2 class="text-left">Profile <%= currentUser.username %></h2>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-md-7 mr-2">
+                    <div class="form-row">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" name="user[firstName]" id="firstName" value="<%= currentUser.firstName%>">
+                    </div>
+                    <div class="form-row">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" name="user[lastName]" id="lastName" value="<%= currentUser.lastName%>">
+                    </div>
+                    <div class="form-row">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="password">
+                    </div>
+                     <div class="form-row">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="user[email]" id="email" value="<%= currentUser.email%>" readonly>
+                    </div>
+                <% if(!currentUser.isAdmin) {%>
+                    <div class="form-row">
+                        <label for="adminCode">If you have an admin code, please enter it here.</label>
+                        <input type="text" class="form-control" name="adminCode" id="adminCode" placeholder="Admin Code">
+                    </div>
+                <% } %>
+                    <div class="form-row">
+                        <button type="submit" class="btn btn-secondary mt-3">Update Profile</button>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label for="avatar" class="sr-only">Profile Image</label>
+                    <img class="d-block" src="<%=currentUser.avatar%>" alt="Your Profile Image" width="150">
+                    <input type="file" id="avatar" name="avatar" accept="image/*">
+                </div>
+            </div>
+        </form>
+    </div>
+<% include ../partials/footer %>

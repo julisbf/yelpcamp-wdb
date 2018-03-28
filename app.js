@@ -13,7 +13,8 @@ var express         = require("express"),
     
 var commentRoutes       = require("./routes/comments"),
     campgroundRoutes    = require("./routes/campgrounds"),
-    indexRoutes         = require("./routes/index");
+    indexRoutes         = require("./routes/index"),
+    usersRoutes         = require("./routes/users");
 
 require('dotenv').config();
 mongoose.connect("mongodb://localhost/yelpcamp_app");
@@ -29,7 +30,7 @@ app.locals.moment = require("moment");
 
 //PASSPORT CONFIG
 app.use(require("express-session")({
-    secret: "My mom is my great companion!",
+    secret: "My mom is my greatest companion!",
     resave: false,
     saveUninitialized: false
 }));
@@ -51,6 +52,7 @@ app.use(function(req,res,next) {
 app.use("/",indexRoutes);
 app.use("/campgrounds",campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
+app.use("/users",usersRoutes);
 
 //START SERVER
 app.listen(process.env.PORT, process.env.IP, function() {
