@@ -8,11 +8,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" name="user[firstName]" id="firstName" value="<%= currentUser.firstName%>">
+                            <input type="text" class="form-control" name="user[firstName]" id="firstName" value="<%= currentUser.firstName%>" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" name="user[lastName]" id="lastName" value="<%= currentUser.lastName%>">
+                            <input type="text" class="form-control" name="user[lastName]" id="lastName" value="<%= currentUser.lastName%>" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -42,15 +42,11 @@
                 </div>
             </div>
         </form>
-        <form id="change_password" action="" method="post">
+        <form id="change_password" action="/users/profile/<%= currentUser._id%>?_method=PUT" method="post">
             <div class="form-row">
                 <div class="form-group col-md-7 mr-2">
                     <h4>Change Password</h4>
                     <hr>
-                    <div class="form-group">
-                        <label for="oldPass">Old Password</label>
-                        <input type="password" class="form-control" name="oldPassword" id="oldPass" placeholder="New Password" required>
-                    </div>
                     <div class="form-group">
                         <label for="newPass">New Password</label>
                         <input type="password" class="form-control" name="password" id="newPass" placeholder="New Password" required>
