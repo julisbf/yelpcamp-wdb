@@ -1,20 +1,19 @@
-var express         = require("express"),
-    app             = express(),
-    bodyParser      = require("body-parser"),
-    mongoose        = require("mongoose"),
-    flash           = require("connect-flash"),
-    passport        = require("passport"),
-    LocalStrategy   = require("passport-local"),
-    methodOverride  = require("method-override"),
-    Campground      = require("./models/campground"),
-    Comment         = require("./models/comment"),
-    User            = require("./models/user.js"),
-    seedDB          = require("./seeds"); //This clean and populate the DB for comments
+const express = require("express");
+const app = express();
+const bodyParser  = require("body-parser");
+const mongoose  = require("mongoose");
+const flash = require("connect-flash");
+const passport  = require("passport");
+const LocalStrategy = require("passport-local");
+const methodOverride  = require("method-override");
+const User  = require("./models/user.js");
+
+//const seedDB  = require("./seeds"); //This clean and populate the DB for comments
     
-var commentRoutes       = require("./routes/comments"),
-    campgroundRoutes    = require("./routes/campgrounds"),
-    indexRoutes         = require("./routes/index"),
-    usersRoutes         = require("./routes/users");
+const commentRoutes = require("./routes/comments");
+const campgroundRoutes  = require("./routes/campgrounds");
+const indexRoutes = require("./routes/index");
+const usersRoutes = require("./routes/users");
 
 require('dotenv').config();
 mongoose.connect("mongodb://localhost/yelpcamp_app");
@@ -30,9 +29,9 @@ app.locals.moment = require("moment");
 
 //PASSPORT CONFIG
 app.use(require("express-session")({
-    secret: "My mom is my greatest companion!",
-    resave: false,
-    saveUninitialized: false
+  secret: "My mom is my greatest companion!",
+  resave: false,
+  saveUninitialized: false
 }));
 
 app.use(passport.initialize());
@@ -42,10 +41,10 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req,res,next) {
-   res.locals.currentUser = req.user;
-   res.locals.success = req.flash("success");
-   res.locals.error = req.flash("error");
-   next();
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
 });
 
 //REQUIRING ROUTES
@@ -56,5 +55,5 @@ app.use("/users",usersRoutes);
 
 //START SERVER
 app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("The YelpCamp server has started!!");
+  console.log("The YelpCamp server has started!!");
 });

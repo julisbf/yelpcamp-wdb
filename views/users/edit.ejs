@@ -1,67 +1,66 @@
 <% include ../partials/header %>
-    <div class="container">
-        <form id="change_profile" action="/users/profile/<%= currentUser._id%>?_method=PUT" method="post" enctype="multipart/form-data">
-            <h4 class="text-left">Profile <%= currentUser.username %></h4>
-            <hr>
-            <div class="form-row">
-                <div class="form-group col-md-7 mr-2">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" name="user[firstName]" id="firstName" value="<%= currentUser.firstName%>" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" name="user[lastName]" id="lastName" value="<%= currentUser.lastName%>" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" value="<%= currentUser.username%>" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" name="user[email]" id="email" value="<%= currentUser.email%>" readonly>
-                        </div>
-                    </div>
-                <% if(!currentUser.isAdmin) {%>
-                    <div class="form-row">
-                        <label for="adminCode">If you have an admin code, please enter it here.</label>
-                        <input type="text" class="form-control" name="adminCode" id="adminCode" placeholder="Admin Code">
-                    </div>
-                <% } %>
-                    <div class="form-row">
-                        <button type="submit" class="btn btn-secondary mt-3 btn-sm">Update Profile</button>
-                    </div>
-                </div>
-                <div class="form-group col ml-4">
-                    <label for="avatar">Profile Image</label>
-                    <img class="d-block mb-2 bg-light rounded" src="<%= currentUser.avatar !== '' ? currentUser.avatar:'../../../images/placeholder.svg' %>" alt="Your Profile Image" width="170">
-                    <input type="file" id="avatar" name="avatar" accept="image/*" class="filestyle" data-input="false" data-text="Upoad new picture">
-                </div>
+  <div class="container forms">
+    <form id="change_profile" action="/users/<%= currentUser._id%>?_method=PUT" method="post" enctype="multipart/form-data">
+      <h4 class="text-left">Profile <%= currentUser.username %></h4>
+      <hr>
+      <div class="form-row">
+        <div class="form-group col-md-9">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" name="user[firstName]" id="firstName" value="<%= currentUser.firstName%>" required>
             </div>
-        </form>
-        <form id="change_password" action="/users/profile/<%= currentUser._id%>?_method=PUT" method="post">
-            <div class="form-row">
-                <div class="form-group col-md-7 mr-2">
-                    <h4>Change Password</h4>
-                    <hr>
-                    <div class="form-group">
-                        <label for="newPass">New Password</label>
-                        <input type="password" class="form-control" name="password" id="newPass" placeholder="New Password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmPass">Confirm New Password</label>
-                        <input type="password" class="form-control" name="confirm" id="confirmPass" placeholder="Confirm Password" required>
-                    </div>
-                    <div class="form-row d-inline">
-                        <button type="submit" class="btn btn-secondary btn-sm mr-2">Update Password</button>
-                        <a href="/forgot" class="btn btn-link">I forgot my password</a>
-                    </div>
-                </div>
-                <div class="form-group col"></div>
+            <div class="form-group col-md-6">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" name="user[lastName]" id="lastName" value="<%= currentUser.lastName%>" required>
             </div>
-        </form>
-    </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" value="<%= currentUser.username%>" readonly>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" name="user[email]" id="email" value="<%= currentUser.email%>" readonly>
+            </div>
+          </div>
+        <% if(!currentUser.isAdmin) {%>
+          <div class="form-row">
+            <label for="adminCode">If you have an admin code, please enter it here.</label>
+            <input type="text" class="form-control" name="adminCode" id="adminCode" placeholder="Admin Code">
+          </div>
+        <% } %>
+          <div class="form-row">
+            <button type="submit" class="btn btn-secondary mt-3 btn-sm">Update Profile</button>
+          </div>
+        </div>
+        <div class="form-group col ml-4">
+          <label for="avatar">Profile Image</label>
+          <img class="d-block mb-2 bg-light rounded" src="<%= currentUser.avatar !== '' ? currentUser.avatar:'/images/placeholder.svg' %>" alt="Your Profile Image" width="170">
+          <input type="file" id="avatar" name="avatar" accept="image/*" class="filestyle" data-input="false" data-text="Upload new picture">
+        </div>
+      </div>
+    </form>
+    <form id="change_password" action="/users/<%= currentUser._id%>?_method=PUT" method="post">
+      <div class="form-row">
+        <div class="form-group col-md-7 mr-2">
+          <h4>Change Password</h4>
+          <hr>
+          <div class="form-group">
+            <label for="newPass">New Password</label>
+            <input type="password" class="form-control" name="password" id="newPass" placeholder="New Password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmPass">Confirm New Password</label>
+            <input type="password" class="form-control" name="confirm" id="confirmPass" placeholder="Confirm Password" required>
+          </div>
+          <div class="form-row d-inline">
+            <button type="submit" class="btn btn-secondary btn-sm mr-2">Update Password</button>
+            <a href="/forgot" class="btn btn-link">I forgot my password</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 <% include ../partials/footer %>

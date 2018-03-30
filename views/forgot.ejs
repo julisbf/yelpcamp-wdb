@@ -1,19 +1,22 @@
 <% include ./partials/header %>
-    <div class="container border border-secondary">
-        <form action="/forgot" method="post">
-            <div class="form-row justify-content-center">
-                <div class="col-md-8">
-                    <h2 class="text-center">Reset Your Password</h2>
-                    <p class="text-center">Please provide the email address you used when you signed up for your YelpCamp account.</p>
-                    <p class="text-center">We will send you an email with a link to reset your password.</p>
-                </div>
-                <div class="col-md-6">
-                    <input type="email" class="form-control" name="email" placeholder="maria@franco.com">
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-secondary btn-block">Reset Password</button>
-                </div>
-            </div>
-        </form>
-    </div>
+  <div class="container forms">
+    <form action="/forgot" method="post">
+      <div class="form-row justify-content-center">
+        <div class="col-md-5 border p-3">
+          <h3 class="text-center">Reset Your Password</h3>
+          <hr>
+          <p class="text-center">Please provide the email address you used when you signed up for your YelpCamp account.</p>
+          <p class="text-center">We will send you an email with a link to reset your password.</p>
+        </div>
+      </div>
+      <div class="form-row justify-content-center">
+        <div class="col-md-3 border-left border-bottom p-3">
+          <input type="email" class="form-control form-control-sm" name="email" placeholder="your@email.com">
+        </div>
+        <div class="col-md-2 border-right border-bottom p-3">
+          <button type="submit" class="btn btn-secondary btn-block form-control btn-sm">Reset Password</button>
+        </div>
+      </div>
+    </form>
+  </div>
 <% include ./partials/footer %>

@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
+const	mongoose = require("mongoose");
 
 //SCHEMA SETUP
-var campgroundSchema =  new mongoose.Schema({
+const campgroundSchema	=	new mongoose.Schema({
 	name: String,
 	price: Number,
 	image: String,
@@ -18,10 +18,10 @@ var campgroundSchema =  new mongoose.Schema({
 		username: String
 	},
 	comments: [
-	    {
-	        type: mongoose.Schema.Types.ObjectId,
-	        ref: "Comment"
-	    }
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
+    }
 	]
 });
 
