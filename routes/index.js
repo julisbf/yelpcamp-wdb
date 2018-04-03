@@ -35,9 +35,9 @@ cloudinary.config({
 
 
 //Mailgun Config
-// const api_key = process.env.MAILGUN_KEY;
-// const domain  = 'sandboxe14a0f41d68d43bfb8e3fb38faaaf9d0.mailgun.org';
-// let mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+const api_key = process.env.MAILGUN_KEY;
+const domain  = 'sandboxe14a0f41d68d43bfb8e3fb38faaaf9d0.mailgun.org';
+let mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
     
 //ROOT ROUTE   
 route.get('/', function(req, res) {
