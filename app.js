@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const app = express();
 const bodyParser  = require("body-parser");
@@ -15,15 +17,17 @@ const campgroundRoutes  = require("./routes/campgrounds");
 const indexRoutes = require("./routes/index");
 const usersRoutes = require("./routes/users");
 
-require('dotenv').config();
-mongoose.connect("mongodb://localhost/yelpcamp_app");
+let urlDataBase = process.env.DATABASEURL || "mongodb://localhost/yelpcamp_app";
+mongoose.connect(urlDataBase); // Development
+//mongoose.connect("mongodb://yelpcamp:wdbcApp@ds231739.mlab.com:31739/yelcamp"); //Production
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use(flash());
-app.locals.moment = require("moment");
-//app.use(express.static(path.join(__dirname, 'public')));// Install path package first. This is if you are not planning to run you app on the root
+
+app.locals.fns = require('date-fns/distance_in_words_to_now');
 
 //seedDB(); //seed the database. Creates some data to be display
 

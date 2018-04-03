@@ -4,17 +4,15 @@ const Campground  = require('../models/campground');
 const middleware  = require('../middleware');
 const NodeGeocoder  = require('node-geocoder');
 const multer  = require('multer');
-    
-require('dotenv').config();
 
-const options = {
+let options = {
   provider: 'google',
   httpAdapter: 'https',
   apiKey: process.env.GEOCODER_API_KEY,
   formatter: null
 };
 
-const geocoder  = NodeGeocoder(options);
+let geocoder  = NodeGeocoder(options);
 
 //Image uploader config
 const storage = multer.diskStorage({
@@ -42,6 +40,7 @@ cloudinary.config({
 
 //INDEX - SHOWS ALL THE CAMPGROUNDS
 route.get('/', function(req, res) {
+  
   if (req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     Campground.find({name: regex}, function(err, allCampgrounds) {
@@ -75,26 +74,28 @@ route.get('/new', middleware.isLoggedIn, function(req, res) {
 
 //CREATE - MAKE A NEW CAMPGROUND AND THEN REDIRECT TO ALL THE LIST 
 route.post('/', middleware.isLoggedIn, upload.single('image'), function(req, res){ 
+  
   geocoder.geocode(req.body.campground.location, function (err, data) {
-      if (err || !data.length) {
-        req.flash('error', 'Invalid address');
-        return res.redirect('back');
+    console.log(req.body.campground.location);
+    if (err || !data.length) {
+      req.flash('error', err.message);
+      return res.redirect('back');
+    }
+    // get data from form and add to campgrounds array
+    req.body.campground.lat = data[0].latitude;
+    req.body.campground.lng = data[0].longitude;
+    req.body.campground.location = data[0].formattedAddress;
+    
+    // Create a new campground and save to DB
+    cloudinary.uploader.upload(req.file.path, function(result) {
+      // add cloudinary url for the image to the campground object under image property
+      req.body.campground.image = result.secure_url;
+      // add author to campground
+      req.body.campground.author = {
+        id: req.user._id,
+        username: req.user.username
       }
-      // get data from form and add to campgrounds array
-      req.body.campground.lat = data[0].latitude;
-      req.body.campground.lng = data[0].longitude;
-      req.body.campground.location = data[0].formattedAddress;
-      
-      // Create a new campground and save to DB
-      cloudinary.uploader.upload(req.file.path, function(result) {
-        // add cloudinary url for the image to the campground object under image property
-        req.body.campground.image = result.secure_url;
-        // add author to campground
-        req.body.campground.author = {
-          id: req.user._id,
-          username: req.user.username
-        }
-        Campground.create(req.body.campground, function(err, campground) {
+      Campground.create(req.body.campground, function(err, campground) {
         if (err) {
           req.flash('error', err.message);
           return res.redirect('back');

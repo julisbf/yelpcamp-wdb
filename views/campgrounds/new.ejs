@@ -1,5 +1,4 @@
 <% include ../partials/header %>
-
   <div class="container forms">
     <form action="/campgrounds" method="post" enctype="multipart/form-data">
       <h3>Create a New Campground</h3>
@@ -8,7 +7,7 @@
         <div class="form-group">
           <label class="sr-only" for="imageURL">Campground image*</label>
           <img class="d-block mb-2 bg-light rounded" src="/images/placeholder.svg" alt="Campground Image" width="170">
-          <input type="file" id="image" name="image" accept="image/*" class="filestyle" data-input="false" data-text="Upload picture" required>
+          <input type="file" id="image" name="image" accept="image/*" class="filestyle" data-input="true" data-text="Upload picture" required>
         </div>
       </div>
       <div class="form-row">

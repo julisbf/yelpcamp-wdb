@@ -1,86 +1,85 @@
 <% include ../partials/header %>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <p class="lead">Yelp Camp</p>
-                <div class="list-group mb-4">
-                    <li class="list-group-item active">Info 1</li>
-                    <li class="list-group-item">Info 2</li>
-                    <li class="list-group-item">Info 3</li>
-                </div>
-                <div id="map"></div>
-            </div>
-            <div class="col-md-9">
-                <div class="img-thumbnail">
-                    <figure class="figure w-100">
-                        <img class="figure-img img-fluid" src="<%= campground.image %>" alt="<%= campground.name %>">
-                        <figcaption class="d-inline">
-                            <h5 class="float-left pl-3"><a href="#"><%= campground.name %></a></h5>
-                            <h5 class="float-right pr-3">$<%= campground.price %>/night</h5>
-                        </figcaption>
-                    </figure>
-                    <div class="float-none p-3">
-                        <%- campground.description %>
-                        <p class="text-muted text-right font-italic">Submitted By <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %> </p>
-                         <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                            <a class="btn btn-sm btn-warning text-white mr-2" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
-                            <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        <% } %>
-                    </div>
-                </div>
-                <div class="bg-light border p-3">
-                    <div class="text-right">
-                        <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add Comment</a></p>
-                    </div>
-                    <hr>
-                    <% campground.comments.forEach(function(comment) { %>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <strong><%= comment.author.username%></strong><span class="float-right text-muted"><%= moment(comment.createdAt).fromNow() %></span>
-                                <p><%= comment.text %></p>
-                            <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                                <a class="btn btn-sm btn-warning text-white" href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit">Edit</a>
-                                <form class="d-inline" action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            <% } %>
-                            </div>
-                        </div>
-                    <%  }) %>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <p class="lead">Yelp Camp</p>
+        <div class="list-group mb-4">
+          <li class="list-group-item active">Info 1</li>
+          <li class="list-group-item">Info 2</li>
+          <li class="list-group-item">Info 3</li>
         </div>
+        <div id="map"></div>
+      </div>
+      <div class="col-md-9">
+        <div class="img-thumbnail">
+          <figure class="figure w-100">
+            <img class="figure-img img-fluid" src="<%= campground.image %>" alt="<%= campground.name %>">
+            <figcaption class="d-inline">
+              <h5 class="float-left pl-3"><a href="#"><%= campground.name %></a></h5>
+              <h5 class="float-right pr-3">$<%= campground.price %>/night</h5>
+            </figcaption>
+          </figure>
+          <div class="float-none p-3">
+            <%- campground.description %>
+            <p class="text-muted text-right font-italic">Submitted By <%= campground.author.username %>, <%= fns(campground.createdAt, { addSuffix: true }) %> </p>
+          <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+            <a class="btn btn-sm btn-warning text-white mr-2" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+            <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          <% } %>
+          </div>
+        </div>
+        <div class="bg-light border p-3">
+          <div class="text-right">
+            <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add Comment</a></p>
+          </div>
+          <hr>
+        <% campground.comments.forEach(function(comment) { %>
+          <div class="row">
+            <div class="col-md-12">
+              <strong><%= comment.author.username%></strong><span class="float-right text-muted"><%= fns(campground.createdAt, { addSuffix: true }) %></span>
+              <p><%= comment.text %></p>
+            <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+              <a class="btn btn-sm btn-warning text-white" href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit">Edit</a>
+              <form class="d-inline" action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            <% } %>
+          </div>
+        </div>
+      <%  }) %>
+      </div>
     </div>
-    
-    <div><a href="/campgrounds"><< Go Back</a></div>
-    <script>
-      function initMap() {
-        var lat = <%= campground.lat %>;
-        var lng = <%= campground.lng %>;
-        var center = {lat: lat, lng: lng };
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
-            center: center,
-            scrollwheel: false
-        });
-        var contentString = `
-          <strong><%= campground.name %><br />
-          <%= campground.location %></strong>
-          <p><%= campground.description %></p>
-        `
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
-        var marker = new google.maps.Marker({
-            position: center,
-            map: map
-        });
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
-      }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBknzJUAe0q-UY4RZbi7OZ_ydgzJ2TZZaI&callback=initMap"></script>
+  </div>
+  <div><a href="/campgrounds"><< Go Back</a></div>
+  <script>
+    function initMap() {
+      let lat = <%= campground.lat %>;
+      let lng = <%= campground.lng %>;
+      let center = {lat: lat, lng: lng };
+      let map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: center,
+          scrollwheel: false
+      });
+      let contentString = `
+        <strong><%= campground.name %><br />
+        <%= campground.location %></strong>
+        <p><%= campground.description %></p>
+      `
+      let infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      let marker = new google.maps.Marker({
+          position: center,
+          map: map
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMJ2VsUxOkpqOfEFlS_qCJ01YaDOIQ74A&callback=initMap"></script>
 <% include ../partials/footer %>
 
