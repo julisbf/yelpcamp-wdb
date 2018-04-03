@@ -1,4 +1,4 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 const express = require("express");
 const app = express();
@@ -18,8 +18,7 @@ const indexRoutes = require("./routes/index");
 const usersRoutes = require("./routes/users");
 
 let urlDataBase = process.env.DATABASEURL || "mongodb://localhost/yelpcamp_app";
-mongoose.connect(urlDataBase); // Development
-//mongoose.connect("mongodb://yelpcamp:wdbcApp@ds231739.mlab.com:31739/yelcamp"); //Production
+mongoose.connect(urlDataBase);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
