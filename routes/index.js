@@ -8,7 +8,6 @@ const crypto  = require('crypto');
 const multer  = require('multer');
 const cloudinary = require('cloudinary');
 
-require('dotenv').config();
 //nodemailer  = require('nodemailer')// Add package to use it.
 
 //Image uploader config
