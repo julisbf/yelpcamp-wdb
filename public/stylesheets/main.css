@@ -1,76 +1,261 @@
+html {
+  font-size: 1rem;
+}
+
 body {
-    padding-top: 80px;
+  padding-top: 80px;
 }
 
-.search-btn {
-    color: #f1f1f1;
-    background-color: #A258A3;
-    border-color: #A258A3;
+/*Navbar*/
+.navbar-nav {
+  padding-top: 1rem;
 }
 
-.search-btn:hover {
-    background-color: #333;
-    border-color: #333;
-}
-
-.img-thumbnail {
-    padding: 0;
-    margin-bottom: 1em;
-}
-
-.img-thumbnail img {
-     width: 100%;
-}
-
-label {
-    font-weight: bold;
-}
-
-/* Google Maps */
-#map {
-    height: 400px;
-    width: 100%;
-}
-
-.forms {
-    width: 60%;
-    padding-bottom: 2rem;
-}
-
-.icon-btn {
-    width: 1.5rem;
+.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link:hover {
+ /*border-bottom: 2px solid #A258A3;*/
+ color: #A258A3;
 }
 
 .avatar {
-    border-radius: 50%;
-    width: calc(1.8rem - 2px);
-    border: 2px solid #4d4d4d;
+  border-radius: 50%;
+  width: calc(2.5rem - 2px);
+  border: 2px solid #4d4d4d;
+  vertical-align: bottom;
 }
 
 .avatar:hover, .navbar-light .navbar-nav .active > .nav-link .avatar { 
-    border-color: #a258a3;
+  border-color: #a258a3;
 }
 
-.navbar-light .navbar-nav .active > .nav-link {
-    border-bottom: 2px solid #A258A3;
+.icon-btn {
+  width: 2.5rem;
+  vertical-align: bottom;
+}
+.menu-text {
+  margin-left: 1rem;
+}
+.search-btn {
+  color: #f1f1f1;
+  background-color: #A258A3;
+  border-color: #A258A3;
+}
+
+.search-btn:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+.search-form {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-form .form-control {
+  width: 80%;
+}
+
+/****/
+/*Home Campgrounds*/
+.jumbotron .container {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .logo-jumbotron {
-    width: 5rem;
-    vertical-align: baseline;
+  width: 5rem;
+  vertical-align: baseline;
 }
 
+.display-4 {
+  font-size: 2.2rem;
+}
+
+.lead {
+  font-size: 1rem;
+}
+
+.btn-lg {
+  font-size: 1rem;
+}
+
+.img-thumbnail {
+  padding: 0;
+  margin-bottom: 1em;
+}
+
+.img-thumbnail img {
+   width: 100%;
+}
+
+.info {
+  text-align: left;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 1rem;
+}
+
+.text-price {
+  float:left;
+  font-size: 1.2rem;
+}
+
+.list-location {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.more-info {
+  float: right;
+}
+/*****/
+
+label {
+  font-weight: bold;
+}
+
+/*Campground info page*/
+.info-left {
+  margin-bottom: 2rem;
+}
+/* Google Maps */
+#map {
+  height: 250px;
+  width: 100%;
+}
+.info-right {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 1rem;
+}
+
+.price, .name-camp {
+  float: none;
+}
+
+.description {
+  padding: 1rem;
+}
+/*********/
+
+.forms {
+  width: 100%;
+}
+
+/*Modal Forgot Password*/
 button .close {
-    color: #A258A3;
+  color: #A258A3;
 }
 .modal-footer {
-    justify-content: center;
-    background-color: #F3F2F0;
-    border-color: #A258A3;
+  justify-content: center;
+  background-color: #F3F2F0;
+  border-color: #A258A3;
 }
 
-@media (max-width: 768px) {
-    .forms {
-        width: 100%;
-    }
+/*// Extra small devices (portrait phones, less than 576px)*/
+/*// No media query since this is the default in Bootstrap*/
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) { 
+  html {
+    font-size: 1rem;
+  }
+  
+  .jumbotron {
+    padding: 4rem 1.5rem;
+  }
+  
+  .info {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .info span {
+    float:none;
+    font-size: 1rem;
+  }
+  
+  .list-location {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .more-info {
+    float: right;
+  }
+  
+  .price {
+    float: right;
+  }
+  
+  .name-camp {
+    float: left;
+  }
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+  .display-4 {
+    font-size: 3.2rem;
+  }
+  
+  .lead {
+    font-size: 1.25rem;
+  }
+  
+  .icon-btn {
+    width: 1.5rem;
+  }
+  
+  .avatar {
+    width: 1.8rem;
+    border-width: 1px;
+  }
+  
+  .search-form .form-control {
+    width: 50%;
+  }
+  
+  .forms {
+    width: 60%;
+    padding-bottom: 2rem;
+  }
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) { 
+  
+  .navbar-light .navbar-nav .active > .nav-link {
+    border-bottom: 2px solid #A258A3;
+  }
+  
+  .menu-text {
+    display: none;
+  }
+  .search-form {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .search-form .form-control {
+    width: auto;
+  }
+  
+  .display-4 {
+    font-size: 4.5rem;
+  }
+  .logo-jumbotron {
+    width: 8rem;
+  }
+  
+  /* Google Maps */
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { 
+   
 }

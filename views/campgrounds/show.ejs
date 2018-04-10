@@ -1,8 +1,8 @@
 <% include ../partials/header %>
   <div class="container">
     <div class="row">
-      <div class="col-md-3">
-        <p class="lead">Yelp Camp</p>
+      <div class="col-md-4 col-lg-3 info-left">
+        <p class="h5"><%= campground.name %></p>
         <div class="list-group mb-4">
           <li class="list-group-item active">Info 1</li>
           <li class="list-group-item">Info 2</li>
@@ -10,20 +10,20 @@
         </div>
         <div id="map"></div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-8 col-lg-9">
         <div class="img-thumbnail">
           <figure class="figure w-100">
             <img class="figure-img img-fluid" src="<%= campground.image %>" alt="<%= campground.name %>">
-            <figcaption class="d-inline">
-              <h5 class="float-left pl-3"><a href="#"><%= campground.name %></a></h5>
-              <h5 class="float-right pr-3">$<%= campground.price %>/night</h5>
+            <figcaption class="info-right">
+              <h5 class="name-camp"><a class="text-secondary" href="#"><%= campground.name %></a></h5>
+              <h5 class="price">$<%= campground.price %>/night</h5>
             </figcaption>
           </figure>
-          <div class="float-none p-3">
+          <div class="description">
             <%- campground.description %>
             <p class="text-muted text-right font-italic">Submitted By <%= campground.author.username %>, <%= fns(campground.createdAt, { addSuffix: true }) %> </p>
           <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-            <a class="btn btn-sm btn-warning text-white mr-2" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+            <a class="btn btn-sm btn-warning text-white" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
             <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
               <button class="btn btn-sm btn-danger">Delete</button>
             </form>
@@ -39,7 +39,7 @@
           <div class="row">
             <div class="col-md-12">
               <strong><%= comment.author.username%></strong><span class="float-right text-muted"><%= fns(comment.createdAt, { addSuffix: true }) %></span>
-              <p><%= comment.text %></p>
+              <p class="py-2"><%= comment.text %></p>
             <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
               <a class="btn btn-sm btn-warning text-white" href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit">Edit</a>
               <form class="d-inline" action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
@@ -50,9 +50,9 @@
         </div>
       <%  }) %>
       </div>
+      <div><a class="btn btn-outline-info my-3" href="/campgrounds"><< Go Back</a></div>
     </div>
   </div>
-  <div><a href="/campgrounds"><< Go Back</a></div>
   <script>
     function initMap() {
       let lat = <%= campground.lat %>;

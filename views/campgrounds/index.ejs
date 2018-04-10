@@ -6,18 +6,22 @@
         <h1 class="display-4"><img class="logo-jumbotron" src="/images/tent-logo.svg"> Welcome To YelpCamp!</h1>
         <p class="lead">View our hand-picked campgrounds from all over the world</p>
     <% if (currentUser) { %>
-        <p><a class="btn btn-primary btn-lg" href="/campgrounds/new" role="button">ADD A NEW CAMPGROUND</a></p>
+        <p><a class="btn btn-info btn-lg" href="/campgrounds/new" role="button">ADD A NEW CAMPGROUND</a></p>
     <% } %>
       </div>
     </header>
     <div class="row text-center" style="display:flex;flex-wrap:wrap;">
     <% campgrounds.forEach (function(campground) { %>
-      <div class="col-md-3 col-sm-6 my-3">
+      <div class="col-lg-3 col-md-4 col-sm-6 my-3">
         <div class="img-thumbnail">
           <figure class="figure">
             <img class="figure-img img-fluid" src="<%= campground.image %>" alt="<%= campground.name %>">
-            <figcaption class="h5"><%= campground.name %></figcaption>
-            <a href="/campgrounds/<%= campground._id %>" class="btn btn-secondary">More Info</a>
+            <figcaption class="info">
+              <p class="h5"><%= campground.name %></p>
+              <p class="text-muted list-location"><%= campground.location %></p>
+              <p class="text-price text-secondary">US$<%= campground.price %></p>
+              <a href="/campgrounds/<%= campground._id %>" class="btn btn-outline-info btn-sm more-info">More Info</a>
+            </figcaption>
           </figure>
         </div>
       </div>
