@@ -1,4 +1,4 @@
-//require('dotenv').config();
+//require('dotenv').config(); //When making local tests uncomment
 
 const express = require("express");
 const app = express();
