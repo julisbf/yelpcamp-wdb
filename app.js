@@ -1,4 +1,3 @@
-/* When making local tests uncomment */
 require('dotenv').config(); 
 
 const express = require("express");
