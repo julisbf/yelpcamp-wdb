@@ -1,4 +1,5 @@
-//require('dotenv').config(); //When making local tests uncomment
+/* When making local tests uncomment */
+require('dotenv').config(); 
 
 const express = require("express");
 const app = express();
@@ -10,7 +11,8 @@ const LocalStrategy = require("passport-local");
 const methodOverride  = require("method-override");
 const User  = require("./models/user.js");
 
-//const seedDB  = require("./seeds"); //This clean and populate the DB for comments
+/* This clean and populate the DB for comments */
+//const seedDB  = require("./seeds"); 
     
 const commentRoutes = require("./routes/comments");
 const campgroundRoutes  = require("./routes/campgrounds");
@@ -28,7 +30,8 @@ app.use(flash());
 
 app.locals.fns = require('date-fns/distance_in_words_to_now');
 
-//seedDB(); //seed the database. Creates some data to be display
+/* Seed the database. Creates some data to be display */
+//seedDB(); 
 
 //PASSPORT CONFIG
 app.use(require("express-session")({

@@ -25,8 +25,10 @@ let imageFilter = function (req, file, cb) {
   cb(null, true);
 };
 
+/* Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files. */
 let upload = multer({ storage: storage, fileFilter: imageFilter});
 
+/* Cloudinary is image cloud service */
 cloudinary.config({ 
   cloud_name: 'dnlmdpqac', 
   api_key: process.env.CLOUDINARY_API_KEY, 
@@ -140,26 +142,27 @@ route.post('/forgot', function(req, res, next) {
       });
     },
     function(token, user, done) {
-          // var smtpTransport = nodemailer.createTransport({
-          //     service: 'Gmail',
-          //     auth: {
-          //         user: 'youremail@mail.com',
-          //         pass: process.env.GMAILPW // export GMAILPW=yourpassword
-          //     }
-          // });
-          
-          // smtpTransport.sendMail(mailOptions, function(err) {
-          //     console.log('email sent');
-          //     req.flash('success','An e-mail has been sent to ' + user.email + ' with further instructions.');
-          //     done(err,'done');
-          // });
-          
-          // var data = {
-          //   from: 'Excited User <jb@madeatmodern.com>',
-          //   to: 'jb@madeatmodern.com',
-          //   subject: 'Hello',
-          //   text: 'Testing some Mailgun awesomeness!'
-          // };
+      /* Nodemailer is a module for Node.js applications to allow easy as cake email sending. */
+      /*var smtpTransport = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+              user: 'youremail@mail.com',
+              pass: process.env.GMAILPW // export GMAILPW=yourpassword
+          }
+      });
+      
+      smtpTransport.sendMail(mailOptions, function(err) {
+          console.log('email sent');
+          req.flash('success','An e-mail has been sent to ' + user.email + ' with further instructions.');
+          done(err,'done');
+      });
+      
+      var data = {
+        from: 'Excited User <jb@madeatmodern.com>',
+        to: 'jb@madeatmodern.com',
+        subject: 'Hello',
+        text: 'Testing some Mailgun awesomeness!'
+      };*/
           
       let mailOptions = {
           to: user.email,
@@ -226,24 +229,25 @@ route.post('/reset/:token', function(req, res) {
           });
         },
       function(user, done) {
-        //   var smtpTransport = nodemailer.createTransport({
-        //     service: 'Gmail', 
-        //     auth: {
-        //       user: 'youremail@mail.com',
-        //       pass: process.env.GMAILPW
-        //     }
-        //   });
-        //   var mailOptions = {
-        //     to: user.email,
-        //     from: 'learntocodeinfo@mail.com',
-        //     subject: 'Your password for YelpCamp App has been changed',
-        //     text: 'Hello,'+ user.username +'\n\n' +
-        //       'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-        //   };
-        //   smtpTransport.sendMail(mailOptions, function(err) {
-        //     req.flash('success', 'Success! Your password has been changed.');
-        //     done(err);
-        //   });
+        /* Nodemailer code. This package is not beign used at the moment */
+        /*var smtpTransport = nodemailer.createTransport({
+          service: 'Gmail', 
+          auth: {
+            user: 'youremail@mail.com',
+            pass: process.env.GMAILPW
+          }
+        });
+        var mailOptions = {
+          to: user.email,
+          from: 'learntocodeinfo@mail.com',
+          subject: 'Your password for YelpCamp App has been changed',
+          text: 'Hello,'+ user.username +'\n\n' +
+            'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+        };
+        smtpTransport.sendMail(mailOptions, function(err) {
+          req.flash('success', 'Success! Your password has been changed.');
+          done(err);
+        });*/
         
         let mailOptions = {
             to: user.email,
