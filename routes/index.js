@@ -136,9 +136,14 @@ route.post('/forgot', function(req, res, next) {
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // Available for 1 hour
         
-        user.save(function(err) {
-            done(err, token, user);
-        });
+        //Uncomment if you want to use Mailgun or Nodemailer
+        /*user.save(function(err) {
+          done(err, token, user);
+        });*/
+        
+        //Comment these lines if you want to use Nodemailer or Mailgun
+        req.flash('success','**Just a demo** An e-mail has been sent to ' + user.email + ' with further instructions. **Not real email has been sent**');
+        res.redirect('/login')
       });
     },
     function(token, user, done) {
@@ -158,13 +163,14 @@ route.post('/forgot', function(req, res, next) {
       });
       
       var data = {
-        from: 'Excited User <jb@madeatmodern.com>',
-        to: 'jb@madeatmodern.com',
+        from: 'Excited User <mail@mail.com>',
+        to: 'mail@mail.com',
         subject: 'Hello',
         text: 'Testing some Mailgun awesomeness!'
       };*/
-          
-      let mailOptions = {
+       
+       //Uncomment when using Mailgun to send email   
+      /*let mailOptions = {
           to: user.email,
           from: 'no-reply@yelpcamp-julianabf.c9users.io',
           subject: 'Yelpcamp App - Password Reset',
@@ -178,7 +184,7 @@ route.post('/forgot', function(req, res, next) {
       mailgun.messages().send(mailOptions, function (error, body) {
         req.flash('success','An e-mail has been sent to ' + user.email + ' with further instructions.');
         done(error, 'done');
-      });
+      });*/
     }
     ], function(err) {
       if (err) return next(err);
