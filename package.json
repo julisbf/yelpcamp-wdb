@@ -7,6 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/julisbf/yelpcamp-wdb.git"
+  },
+  "keywords": [
+    "expressjs",
+    "mongodb",
+    "mongoose",
+    "javascript",
+    "fullstack",
+    "nodejs"
+  ],
   "author": "Juliana BF",
   "license": "ISC",
   "dependencies": {
